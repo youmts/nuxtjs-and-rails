@@ -1,40 +1,37 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
-        app
+        Zenn-app
       </h1>
       <h2 class="subtitle">
-        My impressive Nuxt.js project
+        {{ subTitle }}
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <button class="btn btn-primary" @click="getSomething">
+        タスク取得
+      </button>
+      <ul v-for="task in tasks" :key="task.id">
+        <li style="text-align: left;">{{ task.title }}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Logo from '~/components/Logo.vue'
 
 export default Vue.extend({
-  components: {
-    Logo
+  data() {
+    return    {
+      subTitle: 'Zenn is good sevice!!',
+      tasks: [],
+    }
+  },
+  methods: {
+    async getSomething() {
+      const response = await this.$axios.$get('http://localhost:5000/api/v1/tasks')
+      this.tasks = JSON.parse(response.tasks)
+    }
   }
 })
 </script>
