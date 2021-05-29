@@ -22,8 +22,8 @@ import Vue from 'vue'
 
 export default Vue.extend({
   data() {
-    return    {
-      subTitle: 'Zenn is good sevice!!',
+    return {
+      subTitle: 'Zenn is good service!!',
       tasks: [],
     }
   },
