@@ -1,10 +1,9 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ title }}</h5>
-      <p class="card-test">Test Text</p>
+  <b-list-group-item>
+    <div class="task-text">
+      {{ title }}
     </div>
-  </div>
+  </b-list-group-item>
 </template>
 
 <script lang="ts">
@@ -19,3 +18,9 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss">
+.task-text {
+  text-align: left;
+}
+</style>

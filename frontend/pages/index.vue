@@ -1,16 +1,10 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div>
-      <h1 class="title">
-        Zenn-app
-      </h1>
-      <h2 class="subtitle">
-        {{ subTitle }}
-      </h2>
       <button class="btn btn-primary" @click="getSomething">
         タスク取得
       </button>
-      <task-card-deck class="mt-4" :tasks="tasks" />
+      <task-card-deck class="mt-4" :tasks="tasks" :handleNewTask="onNewTask" />
     </div>
   </div>
 </template>
@@ -21,18 +15,18 @@ import TaskCardDeck from '../components/TaskCardDeck.vue'
 import { TaskData } from '../types/task'
 
 class Data {
-  subTitle!: string;
   tasks!: TaskData[];
+  editingTask!: TaskData;
 }
 
 export default Vue.extend({
   components: {
     TaskCardDeck,
   },
-  data() : Data {
+  data(): Data {
     return {
-      subTitle: 'Zenn is good service!!',
       tasks: [],
+      editingTask: { title: 'dummy' }
     }
   },
   methods: {
@@ -40,6 +34,13 @@ export default Vue.extend({
       const response = await this.$axios.$get('http://localhost:5000/api/v1/tasks')
       this.tasks = JSON.parse(response.tasks)
       console.log(this.tasks)
+    },
+    async onNewTask(title: string) {
+      console.log(title)
+      const newTask: TaskData = {
+        title
+      }
+      this.tasks.unshift(newTask)
     }
   },
 })
