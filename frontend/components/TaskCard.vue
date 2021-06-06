@@ -1,19 +1,54 @@
 <template>
   <b-list-group-item>
-    <div class="task-text">
-      {{ title }}
-    </div>
+      <b-form-input
+        class="card-text"
+        v-model="internalTitle"
+        @change="onChange"
+        ></b-form-input>
   </b-list-group-item>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, {PropType} from 'vue'
+import { TaskData } from '../types/task'
+
+class Data {
+  internalTitle!: string
+}
 
 export default Vue.extend({
   props: {
     title: {
       type: String,
       required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+    handleEditTask : {
+      type: Function as PropType<(index: number, title: string) => void>,
+      required: true
+    }
+  },
+  data(): Data {
+    return {
+      internalTitle: 'dummy',
+    }
+  },
+  watch: {
+    title: {
+      immediate: true,
+      handler(value) {
+        this.internalTitle = value
+      }
+    }
+  },
+  methods: {
+    onChange() {
+      console.log("onChange")
+      this.handleEditTask(this.index, this.internalTitle)
+      console.log(this.internalTitle)
     }
   },
 })
@@ -22,5 +57,13 @@ export default Vue.extend({
 <style lang="scss">
 .task-text {
   text-align: left;
+}
+</style>
+
+<style lang="scss">
+.card-text
+{
+  border: none;
+  border-color: transparent;
 }
 </style>

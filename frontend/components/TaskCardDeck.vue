@@ -1,7 +1,7 @@
 <template>
   <b-list-group>
     <new-task-card :handleNewTask="handleNewTask" />
-    <task-card v-for="task in tasks" :key="task.id" v-bind="task" />
+    <task-card v-for="(task, index) in tasks" :key="task.id" v-bind="task" :index="index" :handleEditTask="handleEditTask" />
   </b-list-group>
 </template>
 
@@ -23,6 +23,10 @@ export default Vue.extend({
     },
     handleNewTask : {
       type: Function as PropType<(title: string) => void>,
+      required: true
+    },
+    handleEditTask : {
+      type: Function as PropType<(index: number, title: string) => void>,
       required: true
     }
   },

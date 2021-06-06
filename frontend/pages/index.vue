@@ -4,7 +4,7 @@
       <button class="btn btn-primary" @click="getSomething">
         タスク取得
       </button>
-      <task-card-deck class="mt-4" :tasks="tasks" :handleNewTask="onNewTask" />
+      <task-card-deck class="mt-4" :tasks="tasks" :handleNewTask="onNewTask" :handleEditTask="onEditTask" />
     </div>
   </div>
 </template>
@@ -41,6 +41,14 @@ export default Vue.extend({
         title
       }
       this.tasks.unshift(newTask)
+    },
+    async onEditTask(index: number, title: string) {
+      console.log(index, title)
+      this.tasks[index] = {
+        ...this.tasks[index],
+        title
+      },
+      console.log(this.tasks[index])
     }
   },
 })
