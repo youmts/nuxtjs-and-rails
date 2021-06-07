@@ -1,16 +1,18 @@
 <template>
   <b-list-group-item>
+    <div class="d-flex">
       <b-form-input
         class="card-text"
         v-model="internalTitle"
         @change="onChange"
-        ></b-form-input>
+      ></b-form-input>
+      <fa-icon icon="check" />
+    </div>
   </b-list-group-item>
 </template>
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
-import { TaskData } from '../types/task'
 
 class Data {
   internalTitle!: string

@@ -1,3 +1,4 @@
+import * as FontAwesome from './build/fontawesome'
 
 export default {
   /*
@@ -40,7 +41,15 @@ export default {
   */
   buildModules: [
     '@nuxt/typescript-build',
+    ['@nuxtjs/fontawesome', { component: 'fa', suffix: true }]
   ],
+  fontawesome: {
+    icons: {
+      solid: FontAwesome.solid,
+      regular: FontAwesome.regular,
+      brands: FontAwesome.brands
+    }
+  },
   /*
   ** Nuxt.js modules
   */
