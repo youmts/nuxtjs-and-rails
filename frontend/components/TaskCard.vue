@@ -1,6 +1,6 @@
 <template>
   <b-list-group-item>
-    <div class="d-flex">
+    <div class="d-flex align-items-center">
       <b-form-input
         class="card-text"
         v-model="internalTitle"
