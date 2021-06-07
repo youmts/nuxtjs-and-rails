@@ -1,9 +1,6 @@
 <template>
   <div class="container">
     <div>
-      <button class="btn btn-primary" @click="getSomething">
-        タスク取得
-      </button>
       <task-card-deck class="mt-4" :tasks="tasks" :handleNewTask="onNewTask" :handleEditTask="onEditTask" />
     </div>
   </div>
@@ -19,6 +16,8 @@ class Data {
   editingTask!: TaskData;
 }
 
+const URL = 'http://localhost:5000/api/v1/'
+
 export default Vue.extend({
   components: {
     TaskCardDeck,
@@ -30,16 +29,18 @@ export default Vue.extend({
     }
   },
   methods: {
-    async getSomething() {
-      const response = await this.$axios.$get('http://localhost:5000/api/v1/tasks')
-      this.tasks = JSON.parse(response.tasks)
+    async getTasks() {
+      const response = await this.$axios.$get(`${URL}tasks`)
+      this.tasks = response.data
       console.log(this.tasks)
     },
     async onNewTask(title: string) {
+      // TODO: avoid cors
+      const response = await this.$axios.$post(`${URL}tasks`, { title })
       console.log(title)
-      const newTask: TaskData = {
-        title
-      }
+      // TODO: error check
+      const newTask = response.data
+      console.log(newTask)
       this.tasks.unshift(newTask)
     },
     async onEditTask(index: number, title: string) {
@@ -51,6 +52,9 @@ export default Vue.extend({
       console.log(this.tasks[index])
     }
   },
+  mounted: async function() {
+    await this.getTasks()
+  }
 })
 </script>
 

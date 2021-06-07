@@ -6,7 +6,6 @@
         v-model="internalTitle"
         @change="onChange"
       ></b-form-input>
-      <fa-icon icon="check" />
     </div>
   </b-list-group-item>
 </template>

@@ -2,15 +2,23 @@ module Api
   module V1
     class TasksController < ApplicationController
       def index
-        # TODO: use seed
-        if Task.count.zero?
-          ['1st task', '2nd task', '3rd task'].each do |title|
-            Task.create!(title: title)
-          end
-        end
+        tasks = Task.order(created_at: :desc)
+        render json: { status: 'SUCCESS', data: tasks }
+      end
 
-        # TODO: serialize
-        render json: { tasks: Task.all.to_json }
+      def create
+        post = Post.new(post_params)
+        if post.save
+          render json: { status: 'SUCCESS', data: post }
+        else
+          render json: { status: 'ERROR', data: post.errors }
+        end
+      end
+
+      private
+
+      def post_params
+        params.require(:post).permit(:title)
       end
     end
   end

@@ -1,5 +1,5 @@
 const solid = [
-  'faCheck'
+  'faBars'
 ]
 
 const regular = []
