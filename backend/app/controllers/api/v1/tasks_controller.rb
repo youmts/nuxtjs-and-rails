@@ -7,18 +7,18 @@ module Api
       end
 
       def create
-        post = Post.new(post_params)
-        if post.save
-          render json: { status: 'SUCCESS', data: post }
+        task = Task.new(task_params)
+        if task.save
+          render json: { status: 'SUCCESS', data: task }
         else
-          render json: { status: 'ERROR', data: post.errors }
+          render json: { status: 'ERROR', data: task.errors }
         end
       end
 
       private
 
-      def post_params
-        params.require(:post).permit(:title)
+      def task_params
+        params.require(:task).permit(:title)
       end
     end
   end
