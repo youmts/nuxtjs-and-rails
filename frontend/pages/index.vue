@@ -16,6 +16,7 @@ class Data {
   editingTask!: TaskData;
 }
 
+// TODO: move to environment settings
 const URL = 'http://localhost:5000/api/v1/'
 
 export default Vue.extend({
